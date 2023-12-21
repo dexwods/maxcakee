@@ -256,10 +256,10 @@ body {
 
 #backgroundGif {
     position: absolute; /* Or absolute, depending on layout */
-    top: 380px;
+    top: 300px;
     left: -30px;
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
     z-index: -3; /* Behind everything */
     object-fit: contain; /* Cover the entire viewport */
 }
@@ -276,7 +276,7 @@ body {
 
 #backgroundGif3 {
     position: absolute; /* Or absolute, depending on layout */
-    top: 500px;
+    top: 480px;
     left: 220px;
     width: 30%;
     height: 30%;
