@@ -1,0 +1,285 @@
+body {
+  background-color: #fcf1f1;
+}
+
+.cake {
+  position: absolute;
+  width: 250px; /* Size from smaller cake */
+  height: 200px; /* Size from smaller cake */
+  top: 50%;
+  left: 50%;
+  margin-top: -100px; /* Adjusted for new size */
+  margin-left: -125px; /* Adjusted for new size */
+}
+
+.plate {
+  width: 270px; /* Size from smaller cake */
+  height: 110px; /* Size from smaller cake */
+  position: absolute;
+  bottom: -10px; /* Adjusted for new size */
+  left: -10px; /* Adjusted for new size */
+  background-color: #ccc;
+  border-radius: 50%;
+  box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cake > * {
+  position: absolute;
+}
+
+.layer {
+  display: block;
+  width: 250px; /* Size from smaller cake */
+  height: 100px; /* Size from smaller cake */
+  border-radius: 50%;
+  background-color: #553c13;
+  box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b, 0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b, 0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a, 0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09, 0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
+}
+
+.layer-top {
+  top: 0px;
+}
+
+.layer-middle {
+  top: 33px; /* Adjusted for new size */
+}
+
+.layer-bottom {
+  top: 66px; /* Adjusted for new size */
+}
+
+.icing {
+  top: 2px; /* From smaller cake */
+  left: 5px; /* From smaller cake */
+  background-color: #f0e4d0;
+  width: 240px; /* From smaller cake */
+  height: 90px; /* From smaller cake */
+  border-radius: 50%;
+}
+
+.icing:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  bottom: 6px;
+  left: 5px;
+  background-color: #f4ebdc;
+  box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+
+.drip {
+  display: block;
+  width: 50px; /* Size from smaller cake */
+  height: 60px; /* Size from smaller cake */
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-color: #f0e4d0;
+}
+
+.drip1 {
+  top: 53px;
+  left: 5px;
+  transform: skewY(15deg);
+  height: 48px; /* Adjusted for consistency */
+  width: 40px;
+}
+
+.drip2 {
+  top: 69px;
+  left: 181px;
+  transform: skewY(-15deg);
+  height: 60px;
+  width: 50px;
+}
+
+.drip3 {
+  top: 54px;
+  left: 90px;
+  width: 80px;
+  height: 60px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.candles {
+  position: absolute;
+  top: -20px; /* Adjusted for new size */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly; /* Distribute candles evenly */
+}
+
+.candle {
+  background-color: #7B020B;
+  width: 16px; /* Size from smaller cake */
+  height: 50px; /* Size from smaller cake */
+  border-radius: 8px/4px;
+  z-index: 10; /* Ensure candles are above icing and drips */
+}
+
+.candle:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ad030f;
+}
+
+.flame {
+  position: absolute;
+  background-color: orange;
+  width: 15px; /* Size from smaller cake */
+  height: 35px; /* Size from smaller cake */
+  border-radius: 10px 10px 10px 10px/25px 25px 10px 10px;
+  top: -34px; /* Adjusted for candle height */
+  left: 50%;
+  margin-left: -7.5px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+  transform-origin: 50% 90%;
+  animation: flicker 1s ease-in-out alternate infinite;
+}
+
+.candle.extinguished .flame {
+    display: none; /* Hides the flame */
+}
+
+#moneyRainContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.money {
+    position: absolute;
+    top: -100px;
+    background-image: url('money.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px; 
+    height: 100px;
+}
+
+
+
+@keyframes flicker {
+  0%, 100% {
+    transform: skewX(5deg);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
+  }
+  25% {
+    transform: skewX(-5deg);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3);
+  }
+  50% {
+    transform: skewX(10deg);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2);
+  }
+  75% {
+    transform: skewX(-10deg);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4);
+  }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+#candleCountContainer {
+    position: absolute;
+    left: 40px;
+    top: -100px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#candleCount {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 50px; /* Adjust as needed */
+}
+
+#topText {
+    font-family: 'Comic Neue', cursive, sans-serif;
+    font-size: 34px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+#imageWithText {
+    position: fixed;
+    left: 50%; /* Center horizontally */
+    top: 90%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust for both axes */
+}
+
+#rightSideImage {
+    max-width: 150px; /* Adjust the size as needed */
+    max-height: 150px; /* Adjust the size as needed */
+    width: 100%; /* This will make the image fit the container */
+    height: auto; /* Maintain aspect ratio */
+	z-index: -1;
+}
+
+
+#overlayText {
+    position: absolute;
+    bottom: 100%; /* Position the text above the image */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    font-size: 16px; /* Adjust as needed */
+    color: black; /* Adjust color as needed */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    padding: 5px; /* Adjust as needed */
+    transform: translateY(-5px); /* Adjust this to move text up or down */
+}
+
+#backgroundGif {
+    position: absolute; /* Or absolute, depending on layout */
+    top: 380px;
+    left: -30px;
+    width: 60%;
+    height: 60%;
+    z-index: -3; /* Behind everything */
+    object-fit: contain; /* Cover the entire viewport */
+}
+
+#backgroundGif2 {
+    position: absolute; /* Or absolute, depending on layout */
+    top: 500px;
+    left: 170px;
+    width: 15%;
+    height: 15%;
+    z-index: -2; /* Behind everything */
+    object-fit: contain; /* Cover the entire viewport */
+}
+
+#backgroundGif3 {
+    position: absolute; /* Or absolute, depending on layout */
+    top: 500px;
+    left: 220px;
+    width: 30%;
+    height: 30%;
+    z-index: -1; /* Behind everything */
+    object-fit: contain; /* Cover the entire viewport */
+}

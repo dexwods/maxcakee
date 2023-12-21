@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Design</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+	<img src="djd.gif" alt="backgroundGif" id ="backgroundGif">
+	<img src="dd.gif" alt="backgroundGif2" id ="backgroundGif2">
+	<img src="dd2.gif" alt="backgroundGif3" id ="backgroundGif3">
+</head>
+<body>
+	<div id="moneyRainContainer"></div>
+	<div id="topText">HBBD & Merry Christmas Jireeeh</div>
+    <div class="cake" id="cake">
+        <div class="plate"></div>
+        <div class="layer layer-bottom"></div>
+        <div class="layer layer-middle"></div>
+        <div class="layer layer-top"></div>
+        <div class="icing"></div>
+        <div class="drip drip1"></div>
+        <div class="drip drip2"></div>
+        <div class="drip drip3"></div>
+        <div class="candles" id="candles"></div> <!-- Container for candles -->
+		<div id="candleCountContainer">
+			<label for="candleCount">Your Age:</label>
+			<input type="text" id="candleCount" readonly />
+		
+</div>
+    </div>
+
+    <script>
+	// Add click event listener to the cake
+	document.getElementById('cake').addEventListener('click', function(event) {
+		var cakeRect = this.getBoundingClientRect();
+		var x = event.clientX - cakeRect.left;
+		var y = event.clientY - cakeRect.top;
+
+		// Define the Y-coordinate range for the top layer of the cake
+		var minY = 0; // Adjust this value based on your layout
+		var maxY = cakeRect.height / 3; // Assuming the top third is the target area
+
+		// Check if the click is within the allowed Y-coordinate range
+		if (y >= minY && y <= maxY) {
+			var candle = document.createElement('div');
+			candle.className = 'candle';
+			candle.innerHTML = '<div class="flame"></div>';
+
+			candle.style.position = 'absolute';
+			candle.style.left = x + 'px';
+			candle.style.bottom = (cakeRect.height - y) + 'px';
+
+			this.appendChild(candle);
+
+			// Increment the age counter
+			incrementAgeCounter();
+		}
+	});
+
+	// Add click event listener to the candle count container
+	document.getElementById('candleCountContainer').addEventListener('click', function(event) {
+		event.stopPropagation(); // Prevents the click from reaching the cake
+	});
+
+	// Function to increment the age counter
+	function incrementAgeCounter() {
+		var currentCount = parseInt(document.getElementById('candleCount').value) || 0;
+		document.getElementById('candleCount').value = currentCount + 1;
+	}
+
+	// Function to extinguish candles and reset age counter (candle count)
+	function extinguishCandles() {
+		var candles = document.getElementsByClassName('candle');
+		for (var i = 0; i < candles.length; i++) {
+			candles[i].classList.add('extinguished');
+		}
+		resetAgeCounter();
+		startMoneyRain(); // Start money rain when candles are extinguished
+	}
+
+	// Function to reset the age counter (candle count)
+	function resetAgeCounter() {
+		document.getElementById('candleCount').value = '0';
+	}
+
+	function startMoneyRain() {
+    const container = document.getElementById('moneyRainContainer');
+    for (let i = 0; i < 10; i++) { // Reduced to 20 money elements (about 40% of the original 50)
+        const money = document.createElement('div');
+        money.classList.add('money');
+        container.appendChild(money);
+
+        // Randomize start positions and falling animation
+        money.style.left = Math.random() * window.innerWidth + 'px';
+        money.style.animation = `fall ${Math.random() * 3 + 2}s linear ${Math.random()}s infinite`;
+
+        // Remove money element after it falls
+        setTimeout(() => money.remove(), 5000);
+    }
+}
+
+
+	// Request access to the microphone
+	navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		.then(function(stream) {
+			var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+			var analyser = audioContext.createAnalyser();
+			var microphone = audioContext.createMediaStreamSource(stream);
+			microphone.connect(analyser);
+			analyser.fftSize = 256;
+
+			var bufferLength = analyser.frequencyBinCount;
+			var dataArray = new Uint8Array(bufferLength);
+
+			// Function to analyze the sound
+			function analyzeSound() {
+				requestAnimationFrame(analyzeSound);
+				analyser.getByteFrequencyData(dataArray);
+
+				// Check for a volume threshold
+				var sum = dataArray.reduce((a, b) => a + b, 0);
+				var average = sum / dataArray.length;
+
+				// Example threshold set to 50
+				if (average > 70) {
+					extinguishCandles();
+				}
+			}
+
+			analyzeSound();
+		})
+		.catch(function(err) {
+			console.error('Error accessing the microphone', err);
+		});
+
+    </script>
+</body>
+</html>
